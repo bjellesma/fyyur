@@ -1,0 +1,11 @@
+{
+  "name": "fyyur",
+  "version": "1.0.0",
+  "description": "Fyyur -----",
+  "main": "index.js",
+  "scripts": {
+    "server": "pipenv run python app.py"
+  },
+  "author": "",
+  "license": "ISC"
+}
