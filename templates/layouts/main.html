@@ -57,7 +57,7 @@
                 (request.endpoint == 'search_venues') or
                 (request.endpoint == 'show_venue') %}
               <form class="search" method="post" action="/venues/search">
-                <input class="form-control"
+                <input class="form-control search_term"
                   type="search"
                   name="search_term"
                   placeholder="Find a venue"
@@ -68,7 +68,7 @@
                 (request.endpoint == 'search_artists') or
                 (request.endpoint == 'show_artist') %}
               <form class="search" method="post" action="/artists/search">
-                <input class="form-control"
+                <input class="form-control search_term"
                   type="search"
                   name="search_term"
                   placeholder="Find an artist"
@@ -117,6 +117,5 @@
   <script>window.jQuery || document.write('<script type="text/javascript" src="/static/js/libs/jquery-1.11.1.min.js"><\/script>')</script>
   <script type="text/javascript" src="/static/js/libs/bootstrap-3.1.1.min.js" defer></script>
   <script type="text/javascript" src="/static/js/plugins.js" defer></script>
-
 </body>
 </html>

@@ -5,37 +5,59 @@
     <form class="form" method="post" action="/venues/{{venue.id}}/edit">
       <h3 class="form-heading">Edit venue <em>{{ venue.name }}</em> <a href="{{ url_for('index') }}" title="Back to homepage"><i class="fa fa-home pull-right"></i></a></h3>
       <div class="form-group">
-        <label for="name">Name</label>
-        {{ form.name(class_ = 'form-control', autofocus = true) }}
+        <label for="name">Name *</label>
+        {{ form.name(class_ = 'form-control', autofocus = true, value=venue.name) }}
       </div>
       <div class="form-group">
-          <label>City & State</label>
+          <label>City & State *</label>
           <div class="form-inline">
             <div class="form-group">
-              {{ form.city(class_ = 'form-control', placeholder='City', autofocus = true) }}
+              {{ form.city(class_ = 'form-control', autofocus = true, value=venue.city) }}
             </div>
             <div class="form-group">
-              {{ form.state(class_ = 'form-control', placeholder='State', autofocus = true) }}
+              {{ form.state(class_ = 'form-control', autofocus = true, value=venue.state) }}
             </div>
           </div>
       </div>
       <div class="form-group">
-        <label for="address">Address</label>
-        {{ form.address(class_ = 'form-control', autofocus = true) }}
+        <label for="address">Address *</label>
+        {{ form.address(class_ = 'form-control', autofocus = true, value=venue.address) }}
       </div>
       <div class="form-group">
           <label for="phone">Phone</label>
-          {{ form.phone(class_ = 'form-control', placeholder='xxx-xxx-xxxx', autofocus = true) }}
+          {{ form.phone(class_ = 'form-control', autofocus = true, value=venue.phone) }}
+        </div>
+      <div class="form-group">
+          <label for="website">Website</label>
+          {{ form.website(class_ = 'form-control', autofocus = true, value=venue.website) }}
+        </div>
+      <div class="form-group">
+          <label for="facebook_link">Facebook Link</label>
+          {{ form.facebook_link(class_ = 'form-control', autofocus = true, value=venue.facebook_link) }}
+        </div>
+      <div class="form-group">
+          <label for="image_link">Image Link</label>
+          {{ form.image_link(class_ = 'form-control', autofocus = true, value=venue.image_link) }}
+        </div>
+        <div class="form-group">
+          <label for="seeking_talent">Seeking Talent?</label>
+          {{ form.seeking_talent(class_ = 'form-control', autofocus = true, checked=venue.seeking_talent, required=False) }}
+        </div>
+        <div class="form-group">
+          <label for="seeking_description">Description</label>
+          <!-- Need to use a regular textarea because you cant prepopulate a flask-wtf textfield -->
+          <textarea autofocus="" class="form-control" id="seeking_description" name="seeking_description">{{venue.seeking_description}}</textarea>
         </div>
       <div class="form-group">
         <label for="genres">Genres</label>
+        <h4>Current Genres:</h4>
+          {% for genre in venue_genres %}
+            <span class="genre"></span>{{genre}}</span>
+          {%endfor%}
+          <br>
         <small>Ctrl+Click to select multiple</small>
-        {{ form.genres(class_ = 'form-control', placeholder='Genres, separated by commas', id=form.state, autofocus = true) }}
+        {{ form.genres(class_ = 'form-control', placeholder='Genres, separated by commas', autofocus = true, required=False) }}
       </div>
-      <div class="form-group">
-          <label for="genres">Facebook Link</label>
-          {{ form.facebook_link(class_ = 'form-control', placeholder='http://', id=form.state, autofocus = true) }}
-        </div>
       <input type="submit" value="Edit Venue" class="btn btn-primary btn-lg btn-block">
     </form>
   </div>

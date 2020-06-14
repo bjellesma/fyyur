@@ -1,9 +1,14 @@
 from datetime import datetime
-from flask_wtf import Form
-from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField
+from flask_wtf import FlaskForm
+from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, AnyOf, URL
+from models import Genre
 
-class ShowForm(Form):
+# get genres from database
+genres = Genre.query.all()
+genre_choices = [(genre.id, genre.name) for genre in genres]
+
+class ShowForm(FlaskForm):
     artist_id = StringField(
         'artist_id'
     )
@@ -16,7 +21,10 @@ class ShowForm(Form):
         default= datetime.today()
     )
 
-class VenueForm(Form):
+class VenueForm(FlaskForm):
+
+    
+
     name = StringField(
         'name', validators=[DataRequired()]
     )
@@ -85,39 +93,28 @@ class VenueForm(Form):
     phone = StringField(
         'phone'
     )
-    image_link = StringField(
-        'image_link'
-    )
-    genres = SelectMultipleField(
-        # TODO implement enum restriction
-        'genres', validators=[DataRequired()],
-        choices=[
-            ('Alternative', 'Alternative'),
-            ('Blues', 'Blues'),
-            ('Classical', 'Classical'),
-            ('Country', 'Country'),
-            ('Electronic', 'Electronic'),
-            ('Folk', 'Folk'),
-            ('Funk', 'Funk'),
-            ('Hip-Hop', 'Hip-Hop'),
-            ('Heavy Metal', 'Heavy Metal'),
-            ('Instrumental', 'Instrumental'),
-            ('Jazz', 'Jazz'),
-            ('Musical Theatre', 'Musical Theatre'),
-            ('Pop', 'Pop'),
-            ('Punk', 'Punk'),
-            ('R&B', 'R&B'),
-            ('Reggae', 'Reggae'),
-            ('Rock n Roll', 'Rock n Roll'),
-            ('Soul', 'Soul'),
-            ('Other', 'Other'),
-        ]
+    website = StringField(
+        'website'
     )
     facebook_link = StringField(
         'facebook_link', validators=[URL()]
     )
+    image_link = StringField(
+        'image_link'
+    )
+    seeking_talent = BooleanField(
+        'seeking_talent', default=False
+    )
+    seeking_description = TextAreaField(
+        'seeking_description'
+    )
+    genres = SelectMultipleField(
+        'genres',
+        choices=genre_choices
+    )
+    
 
-class ArtistForm(Form):
+class ArtistForm(FlaskForm):
     name = StringField(
         'name', validators=[DataRequired()]
     )
@@ -180,41 +177,26 @@ class ArtistForm(Form):
             ('WY', 'WY'),
         ]
     )
+    
     phone = StringField(
-        # TODO implement validation logic for state
         'phone'
+    )
+    website = StringField(
+        'website'
+    )
+    facebook_link = StringField(
+        'facebook_link', validators=[URL()]
     )
     image_link = StringField(
         'image_link'
     )
+    seeking_venue = BooleanField(
+        'seeking_venue', default=False
+    )
+    seeking_description = TextAreaField(
+        'seeking_description'
+    )
     genres = SelectMultipleField(
-        # TODO implement enum restriction
-        'genres', validators=[DataRequired()],
-        choices=[
-            ('Alternative', 'Alternative'),
-            ('Blues', 'Blues'),
-            ('Classical', 'Classical'),
-            ('Country', 'Country'),
-            ('Electronic', 'Electronic'),
-            ('Folk', 'Folk'),
-            ('Funk', 'Funk'),
-            ('Hip-Hop', 'Hip-Hop'),
-            ('Heavy Metal', 'Heavy Metal'),
-            ('Instrumental', 'Instrumental'),
-            ('Jazz', 'Jazz'),
-            ('Musical Theatre', 'Musical Theatre'),
-            ('Pop', 'Pop'),
-            ('Punk', 'Punk'),
-            ('R&B', 'R&B'),
-            ('Reggae', 'Reggae'),
-            ('Rock n Roll', 'Rock n Roll'),
-            ('Soul', 'Soul'),
-            ('Other', 'Other'),
-        ]
+        'genres',
+        choices=genre_choices
     )
-    facebook_link = StringField(
-        # TODO implement enum restriction
-        'facebook_link', validators=[URL()]
-    )
-
-# TODO IMPLEMENT NEW ARTIST FORM AND NEW SHOW FORM

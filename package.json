@@ -4,7 +4,12 @@
   "description": "Fyyur -----",
   "main": "index.js",
   "scripts": {
-    "server": "pipenv run python app.py"
+    "init": "pipenv run python init_data.py",
+    "server": "pipenv run python server.py",
+    "db-init": "pipenv run flask db init",
+    "db-migrate": "pipenv run flask db migrate",
+    "db-upgrade": "pipenv run flask db upgrade",
+    "db-downgrade": "pipenv run flask db downgrade"
   },
   "author": "",
   "license": "ISC"

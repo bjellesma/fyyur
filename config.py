@@ -1,6 +1,5 @@
 import os
 from secure import CONNECT_STRING, APP_DEBUG
-print(f'debug: {APP_DEBUG}')
 SECRET_KEY = os.urandom(32)
 # Grabs the folder where the script runs.
 basedir = os.path.abspath(os.path.dirname(__file__))
